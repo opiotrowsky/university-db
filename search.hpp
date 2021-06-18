@@ -1,8 +1,8 @@
 #pragma once
 #include "command.hpp"
 
-class Sort : public Command {
+class Search : public Command {
 public:
-    Sort();
+    Search();
     virtual void execute() override;
 };

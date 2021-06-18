@@ -36,12 +36,12 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 project(university-db)
-# enable_testing() // For tests
+enable_testing() # For tests
 
-add_executable(${PROJECT_NAME} university-db.cpp command.cpp)
-# add_executable(${PROJECT_NAME}-ut test.cpp command.cpp) // Uncoment and change file For tests
+add_executable(${PROJECT_NAME} university-db.cpp sort.cpp)
+add_executable(${PROJECT_NAME}-ut sort-ut.cpp command.cpp sort.cpp)
 
 add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
 
-# target_link_libraries(${PROJECT_NAME}-ut gtest_main)
-# add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
+target_link_libraries(${PROJECT_NAME}-ut gtest_main)
+add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)

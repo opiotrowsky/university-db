@@ -1,8 +1,13 @@
 #pragma once
 #include "command.hpp"
+#include "ObjectsTest.hpp"
+#include <vector>
 
-class Search : public Command {
+class Sort : public Command {
 public:
-    Search();
+    explicit Sort(ObjectsTest* numbers, const std::function<bool(PersonTest*,PersonTest*)>& fn);
     virtual void execute() override;
+private:
+  ObjectsTest* objects_;
+  std::function<bool(PersonTest*,PersonTest*)> fn_;
 };
