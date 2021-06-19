@@ -1,5 +1,4 @@
 #include "sort.hpp"
-#include "university.hpp"
 #include <algorithm>
 
 Sort::Sort(University* university, const std::function<bool(Person*,Person*)>& fn)

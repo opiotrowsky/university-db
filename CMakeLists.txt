@@ -3,6 +3,18 @@ cmake_minimum_required(VERSION 3.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(FetchContent)
+
+FetchContent_Declare(json
+        GIT_REPOSITORY https://github.com/nlohmann/json.git
+        GIT_TAG v3.7.3)
+
+FetchContent_GetProperties(json)
+if(NOT json_POPULATED)
+  FetchContent_Populate(json)
+  add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
+
 # Download and unpack googletest at configure time
 configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
@@ -36,12 +48,13 @@ if (CMAKE_VERSION VERSION_LESS 2.8.11)
 endif()
 
 project(university-db)
-# enable_testing() // For tests
+enable_testing() # For tests
 
-add_executable(${PROJECT_NAME} university-db.cpp command.cpp)
-# add_executable(${PROJECT_NAME}-ut test.cpp command.cpp) // Uncoment and change file For tests
+add_executable(${PROJECT_NAME} university-db.cpp university.cpp sort.cpp command.cpp person.cpp student.cpp)
+add_executable(${PROJECT_NAME}-ut sort-ut.cpp student-ut.cpp sort.cpp student.cpp person.cpp university.cpp)
 
 add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
 
-# target_link_libraries(${PROJECT_NAME}-ut gtest_main)
-# add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
+target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
+target_link_libraries(${PROJECT_NAME}-ut gtest_main nlohmann_json::nlohmann_json)
+add_test(NAME ${PROJECT_NAME}_test COMMAND ${PROJECT_NAME}-ut)
