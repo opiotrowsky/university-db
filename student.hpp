@@ -5,13 +5,17 @@
 
 class Student : public Person {
 public:
-    virtual void print() override;
+  Student(
+      const std::string& name,
+      const std::string& surname,
+      const std::string& address,
+      size_t index = 0,
+      int64_t pesel = 0,
+      Gender sex = Gender::Female
+      );
 
+  void print() override;
+  size_t getIndex() const;
 private:
-    std::string name_;
-    std::string surname_;
-    std::string adress_;
     size_t index_;
-    size_t pesel_;
-    gender sex_;
 };
