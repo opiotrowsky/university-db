@@ -10,8 +10,8 @@ public:
   void addStudent(Student *);
   void removeStudents();
   void printAllDatabase();
-  void saveRecords();
-  void loadRecords();
+  void saveRecords(const std::string& filename);
+  void loadRecords(const std::string& filename);
   void searchBySurname();
   void searchByPesel();
   void sortByPesel();
@@ -20,6 +20,8 @@ public:
   auto begin() { return students_.begin(); }
   auto end() { return students_.end(); }
 
+  std::vector<Person*> getStudents() const;
+  void clearStudents();
 private:
   std::vector<Person *> students_;
 };

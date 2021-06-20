@@ -10,6 +10,7 @@ public:
          std::string  address,
          int64_t pesel = 0,
          Gender sex = Gender::Female);
+  virtual ~Person() = default;
 
   std::string getName() const;
   std::string getSurname() const;
