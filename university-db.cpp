@@ -8,7 +8,7 @@ int main() {
                                      12345678901, Gender::Female));
   university->addStudent(new Student("Andrzej", "Skowroński", "Gdańsk", 1003,
                                      11223344556, Gender::Male));
-  university->saveRecords();
+  university->saveRecords("university.json");
   university->sortByPesel();
   university->printAllDatabase();
   return 0;

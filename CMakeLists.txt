@@ -50,8 +50,17 @@ endif()
 project(university-db)
 enable_testing() # For tests
 
-add_executable(${PROJECT_NAME} university-db.cpp university.cpp sort.cpp command.cpp person.cpp student.cpp)
-add_executable(${PROJECT_NAME}-ut sort-ut.cpp student-ut.cpp sort.cpp student.cpp person.cpp university.cpp)
+set(sources
+        university.cpp
+        sort.cpp
+        command.cpp
+        person.cpp
+        student.cpp
+        load.cpp
+        save.cpp)
+
+add_executable(${PROJECT_NAME} university-db.cpp ${sources})
+add_executable(${PROJECT_NAME}-ut sort-ut.cpp ${sources})
 
 add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
 

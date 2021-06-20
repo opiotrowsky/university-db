@@ -1,40 +1,20 @@
 #include "university.hpp"
+#include "load.hpp"
+#include "save.hpp"
 #include "sort.hpp"
 #include "student.hpp"
-#include <fstream>
 #include <memory>
-#include <nlohmann/json.hpp>
 
-using json = nlohmann::json;
 
-void University::loadRecords() {
-  std::ifstream ifs("university.json");
-  json jf = json::parse(ifs);
+void University::loadRecords(const std::string& filename) {
+    std::unique_ptr<Load> load(new Load(this, filename));
 
-  for (auto &object : jf) {
-    students_.push_back(
-        new Student(object["name"],
-                    object["surname"],
-                    object["address"],
-                    object["index"]));
-  }
+    load->execute();
 }
-void University::saveRecords() {
-  std::ofstream ofs("university.json");
+void University::saveRecords(const std::string& filename) {
+    std::unique_ptr<Save> save(new Save(this, filename));
 
-  json array = json::array();
-  for (auto *person : students_) {
-    auto *student = dynamic_cast<Student *>(person);
-    if (student) {
-      json object = json::object();
-      object["name"] = student->getName();
-      object["surname"] = student->getSurname();
-      object["address"] = student->getAddress();
-      object["index"] = student->getIndex();
-      array.push_back(object);
-    }
-  }
-  ofs << array;
+    save->execute();
 }
 void University::addStudent(Student *student) { students_.push_back(student); }
 void University::printAllDatabase() {
@@ -47,4 +27,13 @@ void University::sortByPesel() {
   }));
 
   sort->execute();
+}
+std::vector<Person *> University::getStudents() const {
+    return students_;
+}
+void University::clearStudents() {
+    for (auto *student : students_) {
+        delete student;
+    }
+    students_.clear();
 }
