@@ -59,10 +59,17 @@ set(sources
         load.cpp
         save.cpp
         validation.cpp
-        search.cpp)
+        search.cpp
+        )
+
+set(tests
+        sort-ut.cpp
+        command-ut.cpp
+        person-ut.cpp
+        )
 
 add_executable(${PROJECT_NAME} university-db.cpp ${sources})
-add_executable(${PROJECT_NAME}-ut sort-ut.cpp ${sources})
+add_executable(${PROJECT_NAME}-ut ${tests} ${sources})
 
 add_compile_options(${PROJECT_NAME} -Wall -Wextra -Wconversion -pedantic -Werror)
 
