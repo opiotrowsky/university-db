@@ -31,13 +31,9 @@ void University::sortByPesel() {
 }
 void University::searchByPesel(int64_t pesel) {
     std::unique_ptr<Search> search(new Search(
-            this, [](Person *l, Person *p) {
-                return l;
-                //this funtion possibly shouldnt return anything
-                //at least i think so :}
-            },
-            pesel, ""));
-
+            this, [pesel](Person *p) {
+                return p->getPesel() == pesel;
+            }));
     search->execute();
     auto personVec = search->getresVec();
     for (auto &it : personVec) {
@@ -46,13 +42,9 @@ void University::searchByPesel(int64_t pesel) {
 }
 void University::searchBySurname(std::string surname) {
     std::unique_ptr<Search> search(new Search(
-            this, [](Person *l, Person *p) {
-                return l;
-                //this funtion possibly shouldnt return anything
-                //at least i think so :}
-            },
-            0, surname));
-
+            this, [surname](Person *p) {
+                return p->getSurname().compare(surname) == 0;
+            }));
     search->execute();
     auto personVec = search->getresVec();
     for (auto &it : personVec) {
