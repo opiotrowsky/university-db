@@ -57,7 +57,9 @@ set(sources
         person.cpp
         student.cpp
         load.cpp
-        save.cpp)
+        save.cpp
+        validation.cpp
+        search.cpp)
 
 add_executable(${PROJECT_NAME} university-db.cpp ${sources})
 add_executable(${PROJECT_NAME}-ut sort-ut.cpp ${sources})
