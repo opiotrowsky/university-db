@@ -13,7 +13,7 @@ int main() {
     // university->printAllDatabase();
     university->searchByPesel(12345678901);
     university->searchBySurname("Kowalski");
-
+    university->deleteByIndex(1002);
     // university->printAllDatabase();
     return 0;
 }
